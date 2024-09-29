@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+// 产生的go语言的代码,放在一个文件中 必写
+// . --> 产生文件的位置
+// service --> 包名
+option go_package = ".;service";
+
+// 这是一个方法
+service SayHello {
+  // 说明这是一个rpc的方法
+  rpc SayHello(HelloRequest) returns (HelloResponse) {}
+}
+
+message  HelloRequest {
+  string requestName = 1;
+}
+
+message  HelloResponse {
+  string  responseMsg = 1;
+}
