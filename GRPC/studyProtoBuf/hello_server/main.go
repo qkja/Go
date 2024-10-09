@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"maps"
 	"net"
 	service "studyProtoBuf/hello_server/proto"
@@ -20,14 +21,17 @@ func (server) SayHello(ctx context.Context, req *service.HelloRequest) (*service
 }
 
 func main() {
+	// 0. 开启密钥
+	creds, _ := credentials.NewServerTLSFromFile("D:\\Code\\Go\\GRPC\\studyProtoBuf\\key\\test.pem", "D:\\Code\\Go\\GRPC\\studyProtoBuf\\key\\test.key")
+
 	// 1. 开启端口
-	listen, err := net.Listen("tcp", ":8090")
+	listen, err := net.Listen("tcp", ":9090")
 	if err != nil {
 		fmt.Println("创建端口失败 %v", err)
 		return
 	}
 	// 2. 创建服务
-	grpcServer := grpc.NewServer()
+	grpcServer := grpc.NewServer(grpc.Creds(creds))
 	// 3.将我们的服务注册到grpc
 	service.RegisterSayHelloServer(grpcServer, &server{})
 
