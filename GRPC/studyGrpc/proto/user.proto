@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+// 包名
+option go_package = ".;proto";
+import "google/protobuf/timestamp.proto";
+message User {
+  enum UserStatus {
+    UnKnow = 0;
+    Active = 1;
+    InActive = 2;
+  }
+  int64  id = 1;
+  string name = 2;
+  string email = 3;
+  string password = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp update_at = 6;
+  UserStatus status = 7;
+  repeated string  mobiles = 8;
+}

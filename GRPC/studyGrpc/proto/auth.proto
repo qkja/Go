@@ -1,0 +1,29 @@
+syntax = "proto3";
+import "user.proto";
+// 包名
+option go_package = ".;proto";
+
+//定义gprc的的服务
+service AuthService{
+  // 定义注册
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  // 定义登录
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
+
+message  RegisterRequest {
+  string username = 1;
+  string password = 2;
+}
+message  RegisterResponse{
+
+}
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  User user = 2;
+}
